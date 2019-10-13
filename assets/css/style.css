@@ -1,0 +1,38 @@
+body {
+    background-color: black;
+}
+
+#wrapper {
+    width: 960px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+h1, h2, h3, h4 {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.answer-option {
+    width: 400px;
+    margin: 0 auto;
+    padding: 10px 0px;
+    background-color: #333333;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.answer-option:hover {
+    background-color: lightgray;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.answer-option:first-child {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.answer-option:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
