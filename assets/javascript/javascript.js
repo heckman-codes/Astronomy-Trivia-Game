@@ -5,6 +5,7 @@ var questionsArr = [];
 var askedQuestions = [];
 var correct = 0;
 var incorrect = 0;
+var resultsTimeout;
 
 var q1 = {
     title: "Which one of these Astronauts was not on the Apollo 11 mission",
@@ -98,21 +99,29 @@ var q10 = {
 };
 
 questionsArr.push(q1, q2, q3, q4, q5, q6, q7, q8, q9, q10);
-console.log(questionsArr);
 
 $("#question-container").css("display", "none");
 $("#countdown-timer").css("display", "none");
-
+$("#result-box").css("display", "none");
+$("#result").css("display", "none");
+$("#answer").css("display", "none");
 
 
 
 function newQuestion() {
+
+    time = 30;
+    currentQuestion = questionsArr[Math.floor(Math.random() * questionsArr.length)];
+    askedQuestions.push(currentQuestion);
+    questionsArr.splice(currentQuestion, 1);
+    console.log(questionsArr);
+
+    $("#countdown-timer").text("You have " + time + " seconds left");
     $("#question-container").css("display", "initial");
     $("#countdown-timer").css("display", "initial");
-
-
-    time = 31;
-    currentQuestion = questionsArr[Math.floor(Math.random() * questionsArr.length)];
+    $("#result-box").css("display", "none");
+    $("#result").css("display", "none");
+    $("#answer").css("display", "none")
 
     if (intervalId && intervalId >= 0) {
         clearInterval(intervalId);
@@ -122,6 +131,12 @@ function newQuestion() {
         clearInterval(intervalId);
         $("#question-container").css("display", "none");
         $("#countdown-timer").css("display", "none");
+        $("#result-box").css("display", "initial");
+        $("#result").css("display", "initial");
+        $("#answer").css("display", "initial");
+        $("#result-box").css("display", "initial");
+        $("#result").html("Here's how you did:<br>");
+        $("#answer").html("You answered correctly " + correct + " times<br>" + "You answered incorrectly " + incorrect + " times");
         return;
     } else {
         intervalId = setInterval(countdown, 1000);
@@ -130,9 +145,6 @@ function newQuestion() {
         $("#a2").text(currentQuestion.a2);
         $("#a3").text(currentQuestion.a3);
         $("#a4").text(currentQuestion.a4);
-
-        askedQuestions.push(currentQuestion);
-        questionsArr.splice(currentQuestion, 1);
 
         $("#start-game").css("display", "none");
     }
@@ -156,18 +168,35 @@ $(".answer-option").on("click", function () {
     console.log(this.textContent);
     console.log(currentQuestion.answer);
 
-    if (questionsArr.length == 0) {
-        return;
-    }
-
-    if ($(this).textContent === currentQuestion.answer) {
+    if ($(this).text() === currentQuestion.answer) {
         correct++;
         console.log("Correct Guesses: " + correct);
-        newQuestion();
+        $("#question-container").css("display", "none");
+        $("#countdown-timer").css("display", "none");
+        $("#result-box").css("display", "initial");
+        $("#result").css("display", "initial");
+        $("#answer").css("display", "initial");
+        $("#result").html("Correct! <br>");
+        $("#answer").text("Nice Job, you smart person, you");
+
+        resultsTimeout = setTimeout(function () {
+            newQuestion();
+        }, 3000);
     } else {
+
         incorrect++;
         console.log("Incorrect Guesses: " + incorrect);
-        newQuestion();
+        $("#question-container").css("display", "none");
+        $("#countdown-timer").css("display", "none");
+        $("#result-box").css("display", "initial");
+        $("#result").css("display", "initial");
+        $("#answer").css("display", "initial");
+        $("#result").html("Incorrect! <br>");
+        $("#answer").text("The answer was: " + currentQuestion.answer);
+
+        resultsTimeout = setTimeout(function () {
+            newQuestion();
+        }, 3000);
     }
 });
 
