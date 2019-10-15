@@ -8,7 +8,7 @@ var incorrect = 0;
 var resultsTimeout;
 
 var q1 = {
-    title: "Which one of these Astronauts was not on the Apollo 11 mission",
+    title: "Which one of these Astronauts was not on the Apollo 11 mission?",
     a1: "Buzz Aldrin",
     a2: "Neil Armstrong",
     a3: "Michael Collins",
@@ -44,7 +44,7 @@ var q4 = {
 };
 
 var q5 = {
-    title: "Olympus Mons is a volcano, taller than Mt. Everest on what planet",
+    title: "Olympus Mons is a volcano, taller than Mt. Everest on what planet?",
     a1: "Neptune",
     a2: "Mars",
     a3: "Mercury",
@@ -53,7 +53,7 @@ var q5 = {
 };
 
 var q6 = {
-    title: "Our solar system is located in which galaxy",
+    title: "Our solar system is located in which galaxy?",
     a1: "The Milky Way",
     a2: "Andromeda",
     a3: "The Twix Factory",
@@ -62,7 +62,7 @@ var q6 = {
 };
 
 var q7 = {
-    title: "How old is the Earth",
+    title: "How old is the Earth?",
     a1: "4000 Years",
     a2: "4.5 Billion Years",
     a3: "1.2 Million Years",
@@ -72,7 +72,7 @@ var q7 = {
 };
 
 var q8 = {
-    title: "The first man-made object to orbit the earth was called",
+    title: "The first man-made object to orbit the earth was called?",
     a1: "Laika",
     a2: "Discovery",
     a3: "Sputnik",
@@ -106,16 +106,15 @@ $("#result-box").css("display", "none");
 $("#result").css("display", "none");
 $("#answer").css("display", "none");
 
+console.log(questionsArr);
+console.log(currentQuestion);
 
 
 function newQuestion() {
 
-    time = 30;
-    currentQuestion = questionsArr[Math.floor(Math.random() * questionsArr.length)];
-    askedQuestions.push(currentQuestion);
-    questionsArr.splice(currentQuestion, 1);
-    console.log(questionsArr);
-
+    time = 10;
+    randomNum = Math.floor(Math.random() * questionsArr.length);
+    currentQuestion = questionsArr[randomNum];
     $("#countdown-timer").text("You have " + time + " seconds left");
     $("#question-container").css("display", "initial");
     $("#countdown-timer").css("display", "initial");
@@ -145,7 +144,6 @@ function newQuestion() {
         $("#a2").text(currentQuestion.a2);
         $("#a3").text(currentQuestion.a3);
         $("#a4").text(currentQuestion.a4);
-
         $("#start-game").css("display", "none");
     }
 }
@@ -158,15 +156,28 @@ function countdown() {
         clearInterval(intervalId);
         // clockRunning = false;
         incorrect++;
-        console.log("Incorrect Guesses: " + incorrect);
+        $("#question-container").css("display", "none");
+        $("#countdown-timer").css("display", "none");
+        $("#result-box").css("display", "initial");
+        $("#result").css("display", "initial");
+        $("#answer").css("display", "initial");
+        $("#result").html("Incorrect! <br>");
+        $("#answer").text("The answer was: " + currentQuestion.answer);
+        askedQuestions.push(questionsArr[randomNum]);
+        questionsArr.splice(randomNum, 1);
+        console.log(questionsArr);
+        console.log(askedQuestions);
 
-        newQuestion();
+        resultsTimeout = setTimeout(function () {
+            newQuestion();
+        }, 3000);;
     }
 }
 
 $(".answer-option").on("click", function () {
-    console.log(this.textContent);
-    console.log(currentQuestion.answer);
+
+    askedQuestions.push(questionsArr[randomNum]);
+    questionsArr.splice(randomNum, 1);
 
     if ($(this).text() === currentQuestion.answer) {
         correct++;
@@ -181,9 +192,8 @@ $(".answer-option").on("click", function () {
 
         resultsTimeout = setTimeout(function () {
             newQuestion();
-        }, 3000);
+        }, 1500);
     } else {
-
         incorrect++;
         console.log("Incorrect Guesses: " + incorrect);
         $("#question-container").css("display", "none");
@@ -196,8 +206,12 @@ $(".answer-option").on("click", function () {
 
         resultsTimeout = setTimeout(function () {
             newQuestion();
-        }, 3000);
+        }, 1500);
     }
+    console.log(questionsArr);
+    console.log(askedQuestions);
+
+
 });
 
 

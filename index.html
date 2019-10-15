@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto+Condensed&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Trivia Game</title>
@@ -14,7 +16,7 @@
 
 <body>
     <div id="wrapper">
-        <h1>Astronomy Trivia</h1>
+        <h1><img src="assets/images/spaceTrivia-logo.png" /></h1>
         <button id="start-game" onclick="newQuestion()">Click to Play</button>
         <div id="result-box">
             <h2 id="result"></h2>
@@ -25,6 +27,7 @@
         </div>
         <div id="question-container">
             <h3 id="question-box">What Question will appear in this div?</h3>
+            <hr>
             <h4 id="a1" class="answer-option">A1</h4>
             <h4 id="a2" class="answer-option">A2</h4>
             <h4 id="a3" class="answer-option">A3</h4>
