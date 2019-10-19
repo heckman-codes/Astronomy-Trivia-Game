@@ -105,6 +105,8 @@ $("#countdown-timer").css("display", "none");
 $("#result-box").css("display", "none");
 $("#result").css("display", "none");
 $("#answer").css("display", "none");
+$("#reset-game").css("display", "none");
+
 
 console.log(questionsArr);
 console.log(currentQuestion);
@@ -120,8 +122,8 @@ function newQuestion() {
     $("#countdown-timer").css("display", "initial");
     $("#result-box").css("display", "none");
     $("#result").css("display", "none");
-    $("#answer").css("display", "none")
-
+    $("#answer").css("display", "none");
+    $("#reset-game").css("display", "none");
     if (intervalId && intervalId >= 0) {
         clearInterval(intervalId);
     }
@@ -136,6 +138,7 @@ function newQuestion() {
         $("#result-box").css("display", "initial");
         $("#result").html("Here's how you did:<br>");
         $("#answer").html("You answered correctly " + correct + " times<br>" + "You answered incorrectly " + incorrect + " times");
+        $("#reset-game").css("display", "initial");
         return;
     } else {
         intervalId = setInterval(countdown, 1000);
@@ -213,6 +216,12 @@ $(".answer-option").on("click", function () {
 
 
 });
+
+function resetGame() {
+    questionsArr.push(q1, q2, q3, q4, q5, q6, q7, q8, q9, q10);
+    newQuestion();
+
+}
 
 
 
