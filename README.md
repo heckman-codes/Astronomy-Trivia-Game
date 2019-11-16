@@ -1,2 +1,3 @@
-# TriviaGame
-This is my javascript trivia game
+# Astronomy Trivia Game
+
+This is a short Astronomy themed trivia game using Javascript timers.
